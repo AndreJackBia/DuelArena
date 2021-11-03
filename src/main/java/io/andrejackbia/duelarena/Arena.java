@@ -1,4 +1,4 @@
-package io.andrejackbia;
+package io.andrejackbia.duelarena;
 
 import java.util.Random;
 

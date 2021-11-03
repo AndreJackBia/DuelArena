@@ -1,10 +1,10 @@
-package io.andrejackbia;
+package io.andrejackbia.duelarena;
 
-public class Armatura {
+public class Scudo {
 
     private int resistenza;
 
-    public Armatura(int resistenza) {
+    public Scudo(int resistenza) {
         this.resistenza = resistenza;
     }
 
