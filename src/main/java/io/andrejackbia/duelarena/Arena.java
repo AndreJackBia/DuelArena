@@ -25,11 +25,9 @@ public class Arena {
     }
 
     public static String[] execute() {
-        Guerriero gaspare = new Guerriero("Gaspare", 10, 10, 1000);
-        gaspare.setScudo(new Scudo(40));
+        Guerriero gaspare = new Guerriero("Gaspare", 50, 50, 50, 1000);
 
-        Guerriero orazio = new Guerriero("Orazio", 10, 10, 1000);
-        orazio.setArma(new Arma(40));
+        Guerriero orazio = new Guerriero("Orazio", 50, 50, 50,1000);
 
         TempLogger.debug("Benvenuti alla doubleG arena!");
         TempLogger.debug("Oggi si scontrano " + gaspare.getNome() + " contro " + orazio.getNome());

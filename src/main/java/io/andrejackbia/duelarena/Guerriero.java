@@ -1,19 +1,23 @@
 package io.andrejackbia.duelarena;
 
+import java.util.Random;
+
 public class Guerriero {
 
     private String nome;
     private int attacco;
     private int difesa;
+    private int reattivita;
     private int vita;
     private Arma arma;
     private Armatura armatura;
     private Scudo scudo;
 
-    public Guerriero(String nome, int attacco, int difesa, int vita) {
+    public Guerriero(String nome, int attacco, int difesa, int reattivita, int vita) {
         this.nome = nome;
         this.attacco = attacco;
         this.difesa = difesa;
+        this.reattivita = reattivita;
         this.vita = vita;
         this.arma = new Arma(0);
         this.armatura = new Armatura(0);
@@ -21,19 +25,27 @@ public class Guerriero {
     }
 
     public void attacca(Guerriero avversario) {
-        double colpisce = attacco + 10 * Math.random();
-        if (colpisce > avversario.calcolaResistenza()) {
-            TempLogger.debug("L'attacco va a buon fine!");
+        boolean colpito = this.calcolaPotenzaAttacco(this, avversario);
+        if (colpito) {
             int danno = this.calcolaDanno();
-            avversario.setVita(avversario.getVita() - danno);
+            int resistenza = this.calcolaResistenza();
+            int dannoTotale = Math.max((danno - resistenza), 1);
+            TempLogger.debug("L'attacco va a buon fine!");
+            avversario.setVita(avversario.getVita() - dannoTotale);
             TempLogger.debug(nome + " infiligge a " + avversario.getNome() + " " + danno + " danni.");
         } else {
             TempLogger.debug(avversario.getNome() + " respinge l'attacco di " + nome);
         }
     }
 
+    public boolean calcolaPotenzaAttacco(Guerriero attaccante, Guerriero difensore) {
+        Random random = new Random();
+        int x = random.nextInt(attaccante.getAttacco() + difensore.getReattivita() + 1);
+        return x <= attaccante.getAttacco();
+    }
+
     public int calcolaDanno() {
-        return (attacco + arma.getDanno());
+        return (int) ((attacco + arma.getDanno()));
     }
 
     public int calcolaResistenza() {
@@ -98,5 +110,13 @@ public class Guerriero {
 
     public void setScudo(Scudo scudo) {
         this.scudo = scudo;
+    }
+
+    public int getReattivita() {
+        return reattivita;
+    }
+
+    public void setReattivita(int reattivita) {
+        this.reattivita = reattivita;
     }
 }
