@@ -10,7 +10,7 @@ public class Arena {
         int timeout = 0;
 
         for (int i = 0; i < 10000; i++) {
-            io.andrejackbia.duelarena.TempLogger.debug((i + 1));
+            TempLogger.debug((i + 1));
             int result = Integer.parseInt(execute()[0]);
             if (result == 0)
                 orazio++;
@@ -19,22 +19,22 @@ public class Arena {
             else
                 timeout++;
         }
-        io.andrejackbia.duelarena.TempLogger.info("Gaspare: " + gaspare);
-        io.andrejackbia.duelarena.TempLogger.info("Orazio: " + orazio);
-        io.andrejackbia.duelarena.TempLogger.info("Timeout: " + timeout);
+        TempLogger.info("Gaspare: " + gaspare);
+        TempLogger.info("Orazio: " + orazio);
+        TempLogger.info("Timeout: " + timeout);
     }
 
     public static String[] execute() {
         Guerriero gaspare = new Guerriero("Gaspare", 10, 10, 1000);
-        gaspare.setScudo(new io.andrejackbia.duelarena.Scudo(40));
+        gaspare.setScudo(new Scudo(40));
 
         Guerriero orazio = new Guerriero("Orazio", 10, 10, 1000);
-        orazio.setArma(new io.andrejackbia.duelarena.Arma(40));
+        orazio.setArma(new Arma(40));
 
-        io.andrejackbia.duelarena.TempLogger.debug("Benvenuti alla doubleG arena!");
-        io.andrejackbia.duelarena.TempLogger.debug("Oggi si scontrano " + gaspare.getNome() + " contro " + orazio.getNome());
-        io.andrejackbia.duelarena.TempLogger.debug("COMINCIAMO!!!");
-        io.andrejackbia.duelarena.TempLogger.debug();
+        TempLogger.debug("Benvenuti alla doubleG arena!");
+        TempLogger.debug("Oggi si scontrano " + gaspare.getNome() + " contro " + orazio.getNome());
+        TempLogger.debug("COMINCIAMO!!!");
+        TempLogger.debug();
 
         Guerriero primo;
         Guerriero secondo;
@@ -52,14 +52,14 @@ public class Arena {
                 secondo = gaspare;
             }
 
-            io.andrejackbia.duelarena.TempLogger.debug("ROUND " + rounds);
-            io.andrejackbia.duelarena.TempLogger.debug(primo.getNome() + " prova ad attaccare " + secondo.getNome());
+            TempLogger.debug("ROUND " + rounds);
+            TempLogger.debug(primo.getNome() + " prova ad attaccare " + secondo.getNome());
             primo.attacca(secondo);
             if (secondo.isStillAlive()) {
-                io.andrejackbia.duelarena.TempLogger.debug(secondo.getNome() + " prova ad attaccare " + primo.getNome());
+                TempLogger.debug(secondo.getNome() + " prova ad attaccare " + primo.getNome());
                 secondo.attacca(primo);
             }
-            io.andrejackbia.duelarena.TempLogger.debug();
+            TempLogger.debug();
         } while (primo.isStillAlive() && secondo.isStillAlive() && rounds < 10000);
 
         Guerriero vincitore = null;
@@ -80,17 +80,17 @@ public class Arena {
             timeout = true;
         }
         if (!timeout) {
-            io.andrejackbia.duelarena.TempLogger.debug(perdente.getNome() + " è senza vita!");
-            io.andrejackbia.duelarena.TempLogger.debug(vincitore.getNome() + " vince lo scontro in " + rounds + " round.");
+            TempLogger.debug(perdente.getNome() + " è senza vita!");
+            TempLogger.debug(vincitore.getNome() + " vince lo scontro in " + rounds + " round.");
         } else {
-            io.andrejackbia.duelarena.TempLogger.debug("Tempo scaduto!");
+            TempLogger.debug("Tempo scaduto!");
             if (gaspare.getVita() > orazio.getVita()) {
-                io.andrejackbia.duelarena.TempLogger.debug(gaspare.getNome() + " vince lo scontro per punti vita.");
+                TempLogger.debug(gaspare.getNome() + " vince lo scontro per punti vita.");
             } else if (gaspare.getVita() < orazio.getVita()) {
-                io.andrejackbia.duelarena.TempLogger.debug(orazio.getNome() + " vince lo scontro per punti vita.");
+                TempLogger.debug(orazio.getNome() + " vince lo scontro per punti vita.");
             } else {
                 ret = 2;
-                io.andrejackbia.duelarena.TempLogger.debug("Lo scontro si conclude in piena parità");
+                TempLogger.debug("Lo scontro si conclude in piena parità");
             }
         }
 
