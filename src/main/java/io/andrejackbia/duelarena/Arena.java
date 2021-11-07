@@ -10,26 +10,10 @@ public class Arena {
     private static final Logger logger = LogManager.getLogger(Arena.class);
     
     public static void main(String[] args) {
-        int gaspare = 0;
-        int orazio = 0;
-        int timeout = 0;
-
-        for (int i = 0; i < 10000; i++) {
-            logger.debug((i + 1));
-            int result = Integer.parseInt(execute()[0]);
-            if (result == 0)
-                orazio++;
-            else if (result == 1)
-                gaspare++;
-            else
-                timeout++;
-        }
-        logger.info("Gaspare: " + gaspare);
-        logger.info("Orazio: " + orazio);
-        logger.info("Timeout: " + timeout);
+        execute();
     }
 
-    public static String[] execute() {
+    public static int execute() {
         Guerriero gaspare = new Guerriero("Gaspare", 50, 50, 50, 1000);
 
         Guerriero orazio = new Guerriero("Orazio", 50, 50, 50,1000);
@@ -99,6 +83,6 @@ public class Arena {
             }
         }
 
-        return new String[] { ret + "" };
+        return ret;
     }
 }
