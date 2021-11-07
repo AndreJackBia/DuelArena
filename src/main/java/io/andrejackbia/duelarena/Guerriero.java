@@ -1,8 +1,13 @@
 package io.andrejackbia.duelarena;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.Random;
 
 public class Guerriero {
+
+    private final Logger logger = LogManager.getLogger(this.getClass());
 
     private String nome;
     private int attacco;
@@ -27,14 +32,16 @@ public class Guerriero {
     public void attacca(Guerriero avversario) {
         boolean colpito = this.calcolaPotenzaAttacco(this, avversario);
         if (colpito) {
+            logger.debug("L'attacco va a buon fine!");
             int danno = this.calcolaDanno();
+            logger.debug("Danno: " + danno);
             int resistenza = this.calcolaResistenza();
+            logger.debug("Resistenza: " + resistenza);
             int dannoTotale = Math.max((danno - resistenza), 1);
-            TempLogger.debug("L'attacco va a buon fine!");
             avversario.setVita(avversario.getVita() - dannoTotale);
-            TempLogger.debug(nome + " infiligge a " + avversario.getNome() + " " + danno + " danni.");
+            logger.debug(nome + " infiligge a " + avversario.getNome() + " " + dannoTotale + " danni.");
         } else {
-            TempLogger.debug(avversario.getNome() + " respinge l'attacco di " + nome);
+            logger.debug(avversario.getNome() + " respinge l'attacco di " + nome);
         }
     }
 

@@ -1,16 +1,21 @@
 package io.andrejackbia.duelarena;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.Random;
 
 public class Arena {
 
+    private static final Logger logger = LogManager.getLogger(Arena.class);
+    
     public static void main(String[] args) {
         int gaspare = 0;
         int orazio = 0;
         int timeout = 0;
 
         for (int i = 0; i < 10000; i++) {
-            TempLogger.debug((i + 1));
+            logger.debug((i + 1));
             int result = Integer.parseInt(execute()[0]);
             if (result == 0)
                 orazio++;
@@ -19,9 +24,9 @@ public class Arena {
             else
                 timeout++;
         }
-        TempLogger.info("Gaspare: " + gaspare);
-        TempLogger.info("Orazio: " + orazio);
-        TempLogger.info("Timeout: " + timeout);
+        logger.info("Gaspare: " + gaspare);
+        logger.info("Orazio: " + orazio);
+        logger.info("Timeout: " + timeout);
     }
 
     public static String[] execute() {
@@ -29,10 +34,10 @@ public class Arena {
 
         Guerriero orazio = new Guerriero("Orazio", 50, 50, 50,1000);
 
-        TempLogger.debug("Benvenuti alla doubleG arena!");
-        TempLogger.debug("Oggi si scontrano " + gaspare.getNome() + " contro " + orazio.getNome());
-        TempLogger.debug("COMINCIAMO!!!");
-        TempLogger.debug();
+        logger.debug("Benvenuti alla doubleG arena!");
+        logger.debug("Oggi si scontrano " + gaspare.getNome() + " contro " + orazio.getNome());
+        logger.debug("COMINCIAMO!!!");
+        logger.debug("");
 
         Guerriero primo;
         Guerriero secondo;
@@ -50,15 +55,17 @@ public class Arena {
                 secondo = gaspare;
             }
 
-            TempLogger.debug("ROUND " + rounds);
-            TempLogger.debug(primo.getNome() + " prova ad attaccare " + secondo.getNome());
+            logger.debug("ROUND " + rounds);
+            logger.debug(primo.getNome() + " prova ad attaccare " + secondo.getNome());
             primo.attacca(secondo);
             if (secondo.isStillAlive()) {
-                TempLogger.debug(secondo.getNome() + " prova ad attaccare " + primo.getNome());
+                logger.debug(secondo.getNome() + " prova ad attaccare " + primo.getNome());
                 secondo.attacca(primo);
             }
-            TempLogger.debug();
-        } while (primo.isStillAlive() && secondo.isStillAlive() && rounds < 10000);
+            logger.debug(primo.getNome() + " rimane con " + primo.getVita() + " punti vita.");
+            logger.debug(secondo.getNome() + " rimane con " + secondo.getVita() + " punti vita.");
+            logger.debug("");
+        } while (primo.isStillAlive() && secondo.isStillAlive());
 
         Guerriero vincitore = null;
         Guerriero perdente = null;
@@ -69,7 +76,7 @@ public class Arena {
             vincitore = orazio;
             perdente = gaspare;
             ret = 0;
-        } else if (primo.isStillAlive() && !secondo.isStillAlive()) {
+        } else if (gaspare.isStillAlive() && !orazio.isStillAlive()) {
             ret = 1;
             vincitore = gaspare;
             perdente = orazio;
@@ -78,17 +85,17 @@ public class Arena {
             timeout = true;
         }
         if (!timeout) {
-            TempLogger.debug(perdente.getNome() + " è senza vita!");
-            TempLogger.debug(vincitore.getNome() + " vince lo scontro in " + rounds + " round.");
+            logger.debug(perdente.getNome() + " è senza vita!");
+            logger.debug(vincitore.getNome() + " vince lo scontro in " + rounds + " round.");
         } else {
-            TempLogger.debug("Tempo scaduto!");
+            logger.debug("Tempo scaduto!");
             if (gaspare.getVita() > orazio.getVita()) {
-                TempLogger.debug(gaspare.getNome() + " vince lo scontro per punti vita.");
+                logger.debug(gaspare.getNome() + " vince lo scontro per punti vita.");
             } else if (gaspare.getVita() < orazio.getVita()) {
-                TempLogger.debug(orazio.getNome() + " vince lo scontro per punti vita.");
+                logger.debug(orazio.getNome() + " vince lo scontro per punti vita.");
             } else {
                 ret = 2;
-                TempLogger.debug("Lo scontro si conclude in piena parità");
+                logger.debug("Lo scontro si conclude in piena parità");
             }
         }
 
