@@ -15,7 +15,6 @@ public class Arena {
 
     public static int execute() {
         Guerriero gaspare = new Guerriero("Gaspare", 50, 50, 50, 1000);
-
         Guerriero orazio = new Guerriero("Orazio", 50, 50, 50,1000);
 
         logger.debug("Benvenuti alla doubleG arena!");
@@ -30,6 +29,7 @@ public class Arena {
         do {
             rounds++;
 
+            //TODO introdurre reattività
             int moneta = random.nextInt(2);
             if (moneta == 0) {
                 primo = gaspare;
