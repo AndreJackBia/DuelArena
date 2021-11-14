@@ -3,19 +3,17 @@ package io.andrejackbia.duelarena;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Random;
-
 public class Arena {
 
     private static final Logger logger = LogManager.getLogger(Arena.class);
-    
+
     public static void main(String[] args) {
         execute();
     }
 
     public static int execute() {
         Guerriero gaspare = new Guerriero("Gaspare", 50, 50, 50, 1000);
-        Guerriero orazio = new Guerriero("Orazio", 50, 50, 50,1000);
+        Guerriero orazio = new Guerriero("Orazio", 50, 50, 50, 1000);
 
         logger.debug("Benvenuti alla doubleG arena!");
         logger.debug("Oggi si scontrano " + gaspare.getNome() + " contro " + orazio.getNome());
@@ -24,14 +22,11 @@ public class Arena {
 
         Guerriero primo;
         Guerriero secondo;
-        Random random = new Random();
         int rounds = 0;
         do {
             rounds++;
 
-            //TODO introdurre reattività
-            int moneta = random.nextInt(2);
-            if (moneta == 0) {
+            if (gaspare.getReattivita() * Math.random() > orazio.getReattivita() * Math.random()) {
                 primo = gaspare;
                 secondo = orazio;
             } else {
@@ -78,7 +73,6 @@ public class Arena {
             } else if (gaspare.getVita() < orazio.getVita()) {
                 logger.debug(orazio.getNome() + " vince lo scontro per punti vita.");
             } else {
-                ret = 2;
                 logger.debug("Lo scontro si conclude in piena parità");
             }
         }
